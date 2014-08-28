@@ -16,7 +16,54 @@ import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 public class ApplicationSettings {
 
 	/**
-	 * Relative path to directory containing config files
+	 * Enumeration of available application settings
+	 */
+	public enum Settings {
+		/**
+		 * User's desired latitude
+		 */
+		LATITUDE("latitude", new DefaultValue<Double>(33.902729)),
+
+		/**
+		 * User's desired longitude
+		 */
+		LONGITUDE("longitude", new DefaultValue<Double>(-117.897096)),
+
+		/**
+		 * Minimum magnitude to view
+		 */
+		MIN_MAGNITUDE("min_magnitude", new DefaultValue<Double>(7.0));
+
+		/**
+		 * Key to use in the config file
+		 */
+		private final String key;
+
+		/**
+		 * Default value
+		 */
+		private final DefaultValue<?> defaultValue;
+
+		/**
+		 * Constructs a new Setting
+		 * @param key The key for the configurable parameter
+		 */
+		private Settings(final String key, final DefaultValue<?> defaultValue) {
+			this.key = key;
+			this.defaultValue = defaultValue;
+		}
+
+		/**
+		 * Gets the key for the configurable parameter
+		 * @return The key for the configurable parameter
+		 */
+		public String getKey() {
+			return key;
+		}
+	}
+
+	/**
+	 * Relative path to directory containing configuration files
 	 */
 	private static final String CONFIG_DIR = "config";
 
@@ -31,8 +78,7 @@ public class ApplicationSettings {
 	private static final String CONFIG_FILE_LOCATION = CONFIG_DIR + "/" + CONFIG_FILE_NAME;
 
 	/**
-	 * Error message from Apache Commons Configuration when it cannot locate
-	 * the file with the given file name.
+	 * Error message from Apache Commons Configuration when it cannot locate the file with the given file name.
 	 */
 	private static final String CANNOT_LOCATE_CONFIG_FILE_ERROR_MSG =
 			"Cannot locate configuration source config/settings.properties";
@@ -48,9 +94,8 @@ public class ApplicationSettings {
 	private PropertiesConfiguration config;
 
 	/**
-	 * Checks to see if an existing config file exists.  If the file is found,
-	 * then the application settings are loaded from this file.  If the file
-	 * is not found, then a new default one is generated.
+	 * Checks to see if an existing config file exists.  If the file is found, then the application settings
+	 * are loaded from this file.  If the file is not found, then a new default one is generated.
 	 */
 	public ApplicationSettings() {
 
@@ -60,6 +105,10 @@ public class ApplicationSettings {
 							"Attempting to loading application settings file: %s",
 							CONFIG_FILE_LOCATION));
 			config = new PropertiesConfiguration(CONFIG_FILE_LOCATION);
+
+			// Turn on auto save so changes get persisted
+			config.setAutoSave(true);
+
 			LOGGER.info("Application settings loaded");
 		} catch (ConfigurationException ex) {
 			if (ex.getMessage().equals(CANNOT_LOCATE_CONFIG_FILE_ERROR_MSG)) {
@@ -73,6 +122,15 @@ public class ApplicationSettings {
 						ex);
 			}
 		}
+	}
+
+	/**
+	 * Returns a setting as a double precision floating point number
+	 * @param setting The setting to retrieve
+	 * @return The setting value as a double precision floating point number
+	 */
+	public Double getSettingAsDouble(final Settings setting) {
+		return config.getDouble(setting.key);
 	}
 
 	private void generateDefault() {
@@ -113,6 +171,7 @@ public class ApplicationSettings {
 		// Create new configuration from scratch
 		config = new PropertiesConfiguration();
 
+		// Populate configuration with default values from enumeration
 		for (Settings setting : Settings.values()) {
 			config.addProperty(
 					setting.key,
@@ -130,60 +189,21 @@ public class ApplicationSettings {
 					"Error occurred when creating new configuration file",
 					ex);
 		}
+
+		// Turn on auto save so when user changes settings, they'll get persisted
+		config.setAutoSave(true);
 	}
 
+	/**
+	 * Class that holds a default value
+	 *
+	 * @param <T> Value type (Double, String, etc.)
+	 */
 	private static class DefaultValue<T> {
 		private T value;
 
 		public DefaultValue(T value) {
 			this.value = value;
-		}
-	}
-
-	/**
-	 * Enumeration of available application settings
-	 */
-	public enum Settings {
-		/**
-		 * User's desired latitude
-		 */
-		LATITUDE("latitude", new DefaultValue<Double>(1.5)),
-
-		/**
-		 * User's desired longitude
-		 */
-		LONGITUDE("longitude", new DefaultValue<Double>(1.5)),
-
-		/**
-		 * Minimum magnitude to view
-		 */
-		MIN_MAGNITUDE("min_magnitude", new DefaultValue<Double>(1.5));
-
-		/**
-		 * Key to use in the config file
-		 */
-		private final String key;
-
-		/**
-		 * Default value
-		 */
-		private final DefaultValue<?> defaultValue;
-
-		/**
-		 * Constructs a new Setting
-		 * @param key The key for the configurable parameter
-		 */
-		private Settings(final String key, final DefaultValue<?> defaultValue) {
-			this.key = key;
-			this.defaultValue = defaultValue;
-		}
-
-		/**
-		 * Gets the key for the configurable parameter
-		 * @return The key for the configurable parameter
-		 */
-		public String getKey() {
-			return key;
 		}
 	}
 }
