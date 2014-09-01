@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">org.h2.Driver</property>
+		<property name="connection.url">jdbc:h2:mem:skymapfx</property>
+		<property name="connection.username">SA</property>
+		<property name="connection.password"></property>
+
+		<!-- Dialect -->
+		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+
+		<!-- Other properties -->
+		<property name="show_sql">true</property>
+
+		<!-- c3p0 properties -->
+		<property name="hibernate.c3p0.min_size">2</property>
+		<property name="hibernate.c3p0.max_size">5</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+
+		<!-- Mappings -->
+		<mapping class="com.browniebytes.javafx.skymapfx.data.entities.Star" />
+
+	</session-factory>
+
+</hibernate-configuration>

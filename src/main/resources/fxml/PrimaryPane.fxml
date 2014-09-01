@@ -1,8 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
+<BorderPane
+		xmlns:fx="http://javafx.com/fxml"
+		fx:controller="com.browniebytes.javafx.skymapfx.gui.controller.PrimaryController">
+
+	<left>
+		<VBox fx:id="leftPane">
+			<TitledPane text="User Context">
+				<VBox>
+					<padding>
+						<Insets top="10" right="10" bottom="10" left="10"/>
+					</padding>
+					<Label text="Latitude"/>
+					<TextField fx:id="latitudeTextField" text="0">
+						<VBox.margin>
+							<Insets bottom="7"/>
+						</VBox.margin>
+					</TextField>
+					<Label text="Longitude"/>
+					<TextField fx:id="longitudeTextField" text="0">
+						<VBox.margin>
+							<Insets bottom="7"/>
+						</VBox.margin>
+					</TextField>
+					<CheckBox
+							fx:id="useCurrentTimeCheckBox"
+							text="Use Current Date/Time"
+							selected="true">
+						<VBox.margin>
+							<Insets bottom="3"/>
+						</VBox.margin>
+					</CheckBox>
+				</VBox>
+			</TitledPane>
+			<TitledPane text="Time Information">
+				<VBox>
+					<padding>
+						<Insets top="10" right="10" bottom="10" left="10"/>
+					</padding>
+					<AnchorPane>
+						<Label text="Local"/>
+						<Label fx:id="mapLocalTimeTextField" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+				</VBox>
+			</TitledPane>
+		</VBox>
+	</left>
+
+	<center>
+	</center>
+
+</BorderPane>
 

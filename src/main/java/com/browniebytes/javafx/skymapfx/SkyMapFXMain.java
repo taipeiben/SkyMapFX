@@ -1,13 +1,10 @@
 package com.browniebytes.javafx.skymapfx;
 
-import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +19,8 @@ import com.google.inject.Injector;
 public class SkyMapFXMain extends Application {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(SkyMapFXMain.class);
-	private static Server DB_SERVER;
+
+	private static ApplicationModule APP_MODULE;
 	private static Injector INJECTOR;
 
 	@Override
@@ -46,25 +44,20 @@ public class SkyMapFXMain extends Application {
 		Runtime.getRuntime().addShutdownHook(
 				new Thread(
 						() -> {
-							if (DB_SERVER != null) {
-								LOGGER.info("Shutting down database ...");
-								DB_SERVER.stop();
-							}
+							APP_MODULE.shutdown();
 						}));
 
 		try {
-			// Create a new application module
-			final ApplicationModule module = new ApplicationModule();
-
 			// Setup database properties
 			LOGGER.info("Starting database ...");
-			DB_SERVER = Server.createTcpServer("-tcpAllowOthers", "-tcpDaemon", "-baseDir", "data");
-			DB_SERVER.start();
 
-			INJECTOR = Guice.createInjector(module);
+			// Create a new application module
+			APP_MODULE = new ApplicationModule();
+
+			INJECTOR = Guice.createInjector(APP_MODULE);
 
 			launch(args);
-		} catch (FatalRuntimeException | SQLException ex) {
+		} catch (FatalRuntimeException ex){ // | SQLException ex) {
 			LOGGER.error("Fatal exception encountered, terminating application", ex);
 			System.exit(1);
 		}

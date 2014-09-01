@@ -133,6 +133,15 @@ public class ApplicationSettings {
 		return config.getDouble(setting.key);
 	}
 
+	/**
+	 * Returns a setting as a String
+	 * @param setting The setting to retrieve
+	 * @return The setting value as a String
+	 */
+	public String getSettingAsString(final Settings setting) {
+		return config.getString(setting.key);
+	}
+
 	private void generateDefault() {
 		// Check if directory exists, and create it if it doesn't
 		generateConfigDirectory();
