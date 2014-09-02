@@ -22,6 +22,7 @@ import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
+import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 import com.google.inject.Inject;
 
 public class PrimaryController implements Initializable {
@@ -64,6 +65,10 @@ public class PrimaryController implements Initializable {
 		executor.submit(readerTask);
 	}
 
+	/**
+	 * Retrieves the number of stars in the database
+	 * @return Number of stars in the database
+	 */
 	private long getStarCount() {
 		Session session = null;
 		try {
@@ -77,17 +82,26 @@ public class PrimaryController implements Initializable {
 
 	/**
 	 * This task class checks to see if star data is loaded into the database yet.  If data has not been
-	 * loaded, then it calls the catalog data reader to read data from the data file into the database. 
+	 * loaded, then it calls the catalog data reader to read data from the data file into the database.
 	 */
 	private class DataInitializationTask extends Task<Void> {
 		@Override
 		protected Void call() throws Exception {
 			final long starCount = getStarCount();
 			if (starCount == 0) {
-				catalogReader.buildStarDatabase();
-				LOGGER.debug("Stars found in database: " + getStarCount());
+				try {
+					catalogReader.buildStarDatabase();
+					LOGGER.debug("Stars found in database: " + getStarCount());
+				} catch (FatalRuntimeException ex) {
+					// TODO: handle exception
+				}
 			}
 			return null;
+		}
+
+		@Override
+		protected void done() {
+			
 		}
 	}
 }

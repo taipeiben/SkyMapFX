@@ -57,7 +57,7 @@ public class SkyMapFXMain extends Application {
 			INJECTOR = Guice.createInjector(APP_MODULE);
 
 			launch(args);
-		} catch (FatalRuntimeException ex){ // | SQLException ex) {
+		} catch (FatalRuntimeException ex) {
 			LOGGER.error("Fatal exception encountered, terminating application", ex);
 			System.exit(1);
 		}
