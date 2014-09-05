@@ -32,7 +32,12 @@ public class ApplicationSettings {
 		/**
 		 * Minimum magnitude to view
 		 */
-		MIN_MAGNITUDE("min_magnitude", new DefaultValue<Double>(7.0));
+		MIN_MAGNITUDE("min_magnitude", new DefaultValue<Double>(7.0)),
+
+		/**
+		 * Use current time
+		 */
+		USE_CURRENT_TIME("use_current_time", new DefaultValue<Boolean>(true));
 
 		/**
 		 * Key to use in the config file
@@ -140,6 +145,15 @@ public class ApplicationSettings {
 	 */
 	public String getSettingAsString(final Settings setting) {
 		return config.getString(setting.key);
+	}
+
+	/**
+	 * Returns a setting as a Boolean
+	 * @param setting The setting to retrieve
+	 * @return The setting value as a Boolean
+	 */
+	public Boolean getSettingAsBoolean(final Settings setting) {
+		return config.getBoolean(setting.key);
 	}
 
 	private void generateDefault() {

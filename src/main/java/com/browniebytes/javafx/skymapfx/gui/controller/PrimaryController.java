@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ScheduledExecutorService;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +27,9 @@ import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
 import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 import com.google.inject.Inject;
 
+/**
+ * 
+ */
 public class PrimaryController implements Initializable {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PrimaryController.class);
@@ -46,6 +51,7 @@ public class PrimaryController implements Initializable {
 			final CatalogFileReader catalogReader,
 			final SessionFactory sessionFactory,
 			final ScheduledExecutorService executor) {
+
 		this.applicationSettings = applicationSettings;
 		this.sessionFactory = sessionFactory;
 		this.catalogReader = catalogReader;
@@ -63,6 +69,14 @@ public class PrimaryController implements Initializable {
 		LOGGER.debug("Starting data initialization");
 		final DataInitializationTask readerTask = new DataInitializationTask();
 		executor.submit(readerTask);
+
+		useCurrentTimeCheckBox.selectedProperty().set(
+				applicationSettings.getSettingAsBoolean(Settings.USE_CURRENT_TIME));
+
+		useCurrentTimeCheckBox.selectedProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					
+				});
 	}
 
 	/**
@@ -101,6 +115,16 @@ public class PrimaryController implements Initializable {
 
 		@Override
 		protected void done() {
+			
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private class TimeUpdateThread implements Runnable {
+		@Override
+		public void run() {
 			
 		}
 	}
