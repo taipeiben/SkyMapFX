@@ -49,7 +49,31 @@
 					</padding>
 					<AnchorPane>
 						<Label text="Local"/>
-						<Label fx:id="mapLocalTimeTextField" AnchorPane.rightAnchor="0"/>
+						<Label fx:id="mapLocalTimeLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="GMT"/>
+						<Label fx:id="gmtTimeLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="JD"/>
+						<Label fx:id="jdLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="MJD"/>
+						<Label fx:id="mjdLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="GMST"/>
+						<Label fx:id="gmstLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="GAST"/>
+						<Label fx:id="gastLabel" AnchorPane.rightAnchor="0"/>
+					</AnchorPane>
+					<AnchorPane>
+						<Label text="LMST"/>
+						<Label fx:id="lmstLabel" AnchorPane.rightAnchor="0"/>
 					</AnchorPane>
 				</VBox>
 			</TitledPane>
