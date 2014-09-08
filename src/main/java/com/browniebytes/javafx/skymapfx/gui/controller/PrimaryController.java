@@ -7,8 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +25,6 @@ import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
-import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 import com.google.inject.Inject;
 
 /**
