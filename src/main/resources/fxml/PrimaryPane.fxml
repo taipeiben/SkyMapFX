@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import com.browniebytes.javafx.control.DateTimePicker?>
 
 <BorderPane
 		xmlns:fx="http://javafx.com/fxml"
@@ -40,6 +41,7 @@
 							<Insets bottom="3"/>
 						</VBox.margin>
 					</CheckBox>
+					<DateTimePicker fx:id="dateTimePicker"/>
 				</VBox>
 			</TitledPane>
 			<TitledPane text="Time Information">
