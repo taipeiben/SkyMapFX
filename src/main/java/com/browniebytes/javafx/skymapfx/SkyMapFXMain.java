@@ -44,7 +44,9 @@ public class SkyMapFXMain extends Application {
 		Runtime.getRuntime().addShutdownHook(
 				new Thread(
 						() -> {
-							APP_MODULE.shutdown();
+							if (APP_MODULE != null) {
+								APP_MODULE.shutdown();
+							}
 						}));
 
 		try {

@@ -1,6 +1,7 @@
 package com.browniebytes.javafx.skymapfx.data.dto;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -13,9 +14,10 @@ public class TimeComputations {
 	private final ZonedDateTime gmtTime;
 	private final double jd;
 	private final double mjd;
-	private final double gmst;
-	private final double gast;
-	private final double lmst;
+	private final double gmstDeg;
+	private final LocalTime gmst;
+	private final LocalTime gast;
+	private final LocalTime lmst;
 
 	public TimeComputations(final LocalDateTime localDateTime, final double longitude) {
 		this.localDateTime = localDateTime;
@@ -39,13 +41,17 @@ public class TimeComputations {
 		this.mjd = convertJulianDayToModifiedJulianDay();
 
 		// Compute GMST
-		this.gmst = convertJulianDayToGMST();
+		this.gmstDeg = normalizeDegrees(convertJulianDayToGMST());
+		this.gmst = LocalTime.ofNanoOfDay(
+				(long) (86_400_000_000_000L * (gmstDeg/360.0)));
 
 		// Compute GAST
-		this.gast = convertJulianDayToGAST();
+		this.gast = LocalTime.ofNanoOfDay(
+				(long) (86_400_000_000_000L * (normalizeDegrees(convertJulianDayToGAST())/360.0)));
 
 		// Compute LMST
-		this.lmst = convertJulianDayToLMST();
+		this.lmst = LocalTime.ofNanoOfDay(
+				(long) (86_400_000_000_000L * (normalizeDegrees(convertJulianDayToLMST())/360.0)));
 	}
 
 	public LocalDateTime getLocalDateTime() {
@@ -68,16 +74,28 @@ public class TimeComputations {
 		return mjd;
 	}
 
-	public double getGmst() {
+	public LocalTime getGmst() {
 		return gmst;
 	}
 
-	public double getGast() {
+	public LocalTime getGast() {
 		return gast;
 	}
 
-	public double getLmst() {
+	public LocalTime getLmst() {
 		return lmst;
+	}
+
+	private double normalizeDegrees(double degrees) {
+		while (degrees > 360) {
+			degrees -= 360;
+		}
+
+		while (degrees < 0) {
+			degrees += 360;
+		}
+
+		return degrees;
 	}
 
 	private double convertGregorianDateTimeToJulianDay(
@@ -117,7 +135,6 @@ public class TimeComputations {
 	}
 
 	private double convertJulianDayToGAST() {
-
 		final double d = jd - 2451545.0;
 		final double omega = 125.04 - 0.052954 * d;
 		final double l = 280.47 + 0.98565 * d;
@@ -126,11 +143,11 @@ public class TimeComputations {
 		final double w = -0.000319 * Math.sin(omega * Math.PI/180) - 0.000024 * Math.sin((2 * l) * Math.PI/180);
 		final double correction = w * Math.cos(e * Math.PI/180);
 
-		return gmst + correction * 15;
+		return gmstDeg + correction * 15;
 	}
 
 	private double convertJulianDayToLMST() {
-		final double lmst = gmst + longitude;
+		final double lmst = gmstDeg + longitude;
 		return lmst;
 	}
 

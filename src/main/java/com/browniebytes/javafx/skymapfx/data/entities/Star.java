@@ -1,13 +1,19 @@
 package com.browniebytes.javafx.skymapfx.data.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * This class encapsulates all the data that is stored for a star.
  */
 @Entity(name = "STARS")
+@NamedQueries(
+	@NamedQuery(name = "findStarByCatalogId", query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.catalogNumber = :catalogNumber")
+)
 public class Star {
 
 	/**
@@ -15,48 +21,67 @@ public class Star {
 	 */
 	@GeneratedValue
 	@Id
-	private long id;
+	private Long id;
 
 	/**
 	 * Catalog Number
 	 */
-	private long catalogNumber;
+	@Column(nullable = false)
+	private Long catalogNumber;
 
 	/**
 	 * Right ascension
 	 */
-	private double ra;
+	@Column(nullable = false)
+	private Double ra;
 
 	/**
 	 * Right ascension proper motion
 	 */
-	private double raPm;
+	@Column(nullable = false)
+	private Double raPm;
 
 	/**
 	 * Declination
 	 */
-	private double dec;
+	@Column(nullable = false)
+	private Double dec;
 
 	/**
 	 * Declination proper motion
 	 */
-	private double decPm;
+	@Column(nullable = false)
+	private Double decPm;
 
 	/**
 	 * Magnitude
 	 */
-	private double magnitude;
+	@Column(nullable = false)
+	private Double magnitude;
 
 	/**
 	 * Spectral type
 	 */
+	@Column(nullable = false)
 	private String spectralType;
+
+	/**
+	 * Altitude
+	 */
+	@Column(nullable = true)
+	private Double altitude;
+
+	/**
+	 * Azimuth
+	 */
+	@Column(nullable = true)
+	private Double azimuth;
 
 	/**
 	 * Gets the primary key
 	 * @return
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -64,7 +89,7 @@ public class Star {
 	 * Sets the primary key
 	 * @param id Primary key to use
 	 */
-	public void setId(long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -72,7 +97,7 @@ public class Star {
 	 * Gets the catalog number
 	 * @return The catalog number
 	 */
-	public long getCatalogNumber() {
+	public Long getCatalogNumber() {
 		return catalogNumber;
 	}
 
@@ -80,23 +105,23 @@ public class Star {
 	 * Sets the catalog number
 	 * @param catalogNumber The catalog number to use
 	 */
-	public void setCatalogNumber(long catalogNumber) {
+	public void setCatalogNumber(final Long catalogNumber) {
 		this.catalogNumber = catalogNumber;
 	}
 
 	/**
-	 * Gets the right ascension of the star
-	 * @return The right ascension of the star
+	 * Gets the right ascension of the star in degrees
+	 * @return The right ascension of the star in degrees
 	 */
-	public double getRa() {
+	public Double getRa() {
 		return ra;
 	}
 
 	/**
-	 * Sets the right ascension of the star
-	 * @param ra The right ascension value to use
+	 * Sets the right ascension of the star in degrees
+	 * @param ra The right ascension value in degrees to use
 	 */
-	public void setRa(double ra) {
+	public void setRa(final Double ra) {
 		this.ra = ra;
 	}
 
@@ -104,7 +129,7 @@ public class Star {
 	 * Gets the proper motion of right ascension of the star
 	 * @return The proper motion of right ascension of the star
 	 */
-	public double getRaPm() {
+	public Double getRaPm() {
 		return raPm;
 	}
 
@@ -112,23 +137,23 @@ public class Star {
 	 * Sets the proper motion of right ascension of the star
 	 * @param raPm The proper motion of right ascension value to use
 	 */
-	public void setRaPm(double raPm) {
+	public void setRaPm(final Double raPm) {
 		this.raPm = raPm;
 	}
 
 	/**
-	 * Gets the declination
-	 * @return The declination of the star
+	 * Gets the declination in degrees
+	 * @return The declination in degrees of the star
 	 */
-	public double getDec() {
+	public Double getDec() {
 		return dec;
 	}
 
 	/**
-	 * Sets the declination of the star
-	 * @param dec The declination value to use
+	 * Sets the declination of the star in degrees
+	 * @param dec The declination value in degrees to use
 	 */
-	public void setDec(double dec) {
+	public void setDec(final Double dec) {
 		this.dec = dec;
 	}
 
@@ -136,7 +161,7 @@ public class Star {
 	 * Gets the proper motion of declination of the star
 	 * @return The proper motion of declination of the star
 	 */
-	public double getDecPm() {
+	public Double getDecPm() {
 		return decPm;
 	}
 
@@ -144,7 +169,7 @@ public class Star {
 	 * Sets the proper motion of declination of the star
 	 * @param raPm The proper motion of declination value to use
 	 */
-	public void setDecPm(double decPm) {
+	public void setDecPm(final Double decPm) {
 		this.decPm = decPm;
 	}
 
@@ -152,7 +177,7 @@ public class Star {
 	 * Gets the visual magnitude of the star
 	 * @return The magnitude of the star
 	 */
-	public double getMagnitude() {
+	public Double getMagnitude() {
 		return magnitude;
 	}
 
@@ -160,7 +185,7 @@ public class Star {
 	 * Sets the magnitude of the star
 	 * @param magnitude The magnitude value to use
 	 */
-	public void setMagnitude(double magnitude) {
+	public void setMagnitude(final Double magnitude) {
 		this.magnitude = magnitude;
 	}
 
@@ -176,7 +201,39 @@ public class Star {
 	 * Sets the spectral type of the star
 	 * @param spectralType The spectral type value to use
 	 */
-	public void setSpectralType(String spectralType) {
+	public void setSpectralType(final String spectralType) {
 		this.spectralType = spectralType;
+	}
+
+	/**
+	 * Gets the altitude of the star
+	 * @return The altitude of the star
+	 */
+	public Double getAltitude() {
+		return altitude;
+	}
+
+	/**
+	 * Sets the altitude of the star
+	 * @param altitude The altitude value to use
+	 */
+	public void setAltitude(final Double altitude) {
+		this.altitude = altitude;
+	}
+
+	/**
+	 * Gets the azimuth value of the star
+	 * @return The azimuth value of the star
+	 */
+	public Double getAzimuth() {
+		return azimuth;
+	}
+
+	/**
+	 * Sets the azimuth value of the star
+	 * @param azimuth The azimuth value of the star to use
+	 */
+	public void setAzimuth(final Double azimuth) {
+		this.azimuth = azimuth;
 	}
 }

@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.browniebytes.javafx.control.DateTimePicker;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
+import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
 import com.browniebytes.javafx.skymapfx.data.dto.TimeComputations;
 import com.browniebytes.javafx.skymapfx.data.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
@@ -65,6 +66,7 @@ public class PrimaryController implements Initializable {
 	// ========================================
 	private final ApplicationSettings applicationSettings;
 	private final CatalogFileReader catalogReader;
+	private final StarDao starDao;
 	private final SessionFactory sessionFactory;
 	private final ScheduledExecutorService executor;
 
@@ -77,12 +79,14 @@ public class PrimaryController implements Initializable {
 	public PrimaryController(
 			final ApplicationSettings applicationSettings,
 			final CatalogFileReader catalogReader,
+			final StarDao starDao,
 			final SessionFactory sessionFactory,
 			final ScheduledExecutorService executor) {
 
 		this.applicationSettings = applicationSettings;
 		this.sessionFactory = sessionFactory;
 		this.catalogReader = catalogReader;
+		this.starDao = starDao;
 		this.executor = executor;
 	}
 
@@ -132,23 +136,23 @@ public class PrimaryController implements Initializable {
 	private void startTimer() {
 		LOGGER.debug("Starting time update thread");
 		timeUpdateFuture = (ScheduledFuture<Void>) executor.scheduleAtFixedRate(
-				new Runnable() {
-					@Override
-					public void run() {
-						final LocalDateTime localDateTime = LocalDateTime.now();
+				() -> {
+					final LocalDateTime localDateTime = LocalDateTime.now();
 
-						LOGGER.debug("Setting date/time to: " + localDateTime.toString());
+					LOGGER.debug(
+							String.format(
+									"Setting date/time to: %s",  
+									DATETIME_FORMATTER.format(localDateTime)));
 
-						Platform.runLater(
-								() -> {
-									// Changing UI value must be done on application thread
-									dateTimePicker.dateTimeProperty().set(localDateTime);
-									startTimeComputations();
-								});
-					}
+					Platform.runLater(
+							() -> {
+								// Changing UI value must be done on application thread
+								dateTimePicker.dateTimeProperty().set(localDateTime);
+								startTimeComputations();
+							});
 				},
 				0L,  // no delay
-				10L, // period
+				1L, // period
 				TimeUnit.SECONDS); // in seconds
 	}
 
@@ -197,37 +201,78 @@ public class PrimaryController implements Initializable {
 		}
 	}
 
+	/**
+	 * This task computes time computations and then updates the UI once computations are completed.
+	 */
 	private class TimeComputationTask extends Task<TimeComputations> {
+		/**
+		 * Performs time computations on separate thread
+		 */
 		@Override
 		protected TimeComputations call() throws Exception {
 			final LocalDateTime localDateTime = dateTimePicker.dateTimeProperty().get();
 
-			final long start = System.currentTimeMillis();
 			final TimeComputations computations = new TimeComputations(
 					localDateTime,
 					Double.parseDouble(longitudeTextField.textProperty().get())); // TODO: process NumberFormatException
 
-			LOGGER.debug(
-					String.format(
-							"Time computations completed in %d ms",
-							System.currentTimeMillis() - start));
-
 			return computations;
 		}
 
+		/**
+		 * Sets the UI text properties on application thread
+		 */
 		@Override
 		protected void done() {
 			try {
-				LOGGER.debug("Setting time computation labels ...");
-
 				final TimeComputations computations = get();
-				mapLocalTimeLabel.textProperty().set(computations.getLocalDateTime().toString());
-				gmtTimeLabel.setText(computations.getGmtTime().toString());
-				jdLabel.setText(String.format("%.3f", computations.getJd()));
-				mjdLabel.setText(String.format("%.3f", computations.getMjd()));
-				gmstLabel.setText(String.format("%.3f", computations.getGmst()));
-				gastLabel.setText(String.format("%.3f", computations.getGast()));
-				lmstLabel.setText(String.format("%.3f", computations.getLmst()));
+
+				Platform.runLater(
+						() -> {
+							mapLocalTimeLabel.textProperty().set(
+									DATETIME_FORMATTER.format(
+											computations.getLocalDateTime()));
+							gmtTimeLabel.setText(
+									DATETIME_FORMATTER.format(
+											computations.getGmtTime()));
+
+							jdLabel.setText(String.format("%.3f", computations.getJd()));
+							mjdLabel.setText(String.format("%.3f", computations.getMjd()));
+
+							gmstLabel.setText(TIME_FORMATTER.format(computations.getGmst()));
+							gastLabel.setText(TIME_FORMATTER.format(computations.getGast()));
+							lmstLabel.setText(TIME_FORMATTER.format(computations.getLmst()));
+
+							// TODO: Remove this
+							final Star polaris = starDao.findByCatalogId(11767L);
+							final double polRaDeg = polaris.getRa();
+							double temp = polRaDeg / 15;
+							final int polRaHr = (int) Math.floor(temp);
+							temp = (temp - polRaHr) * 60;
+							final int polRaMin = (int) Math.floor(temp);
+							temp = (temp - polRaMin) * 60;
+							final double polRaSec = Math.floor(temp);
+
+							temp = polaris.getDec();
+							final int polDecDeg = (int) Math.floor(temp);
+							temp = (temp - polDecDeg) * 60;
+							final int polDecMin = (int) Math.floor(temp);
+							temp = (temp - polDecMin) * 60;
+							final double polDecSec = Math.floor(temp);
+
+							LOGGER.debug(
+									String.format(
+											"Polaris: RA: %f (%dh %dm %.1f), DEC: %f (%dh %dm %.1f), MAG: %f",
+											polaris.getRa(),
+											polRaHr,
+											polRaMin,
+											polRaSec,
+											polaris.getDec(),
+											polaris.getDec().intValue(),
+											polDecMin,
+											polDecSec,
+											polaris.getMagnitude()));
+						});
 			} catch (ExecutionException ex) {
 				// TODO: handle exception
 				LOGGER.error("Execution exception", ex);
