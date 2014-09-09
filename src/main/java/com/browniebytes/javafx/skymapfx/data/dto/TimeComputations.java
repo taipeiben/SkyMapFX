@@ -17,6 +17,7 @@ public class TimeComputations {
 	private final double gmstDeg;
 	private final LocalTime gmst;
 	private final LocalTime gast;
+	private final double lmstDeg;
 	private final LocalTime lmst;
 
 	public TimeComputations(final LocalDateTime localDateTime, final double longitude) {
@@ -50,8 +51,9 @@ public class TimeComputations {
 				(long) (86_400_000_000_000L * (normalizeDegrees(convertJulianDayToGAST())/360.0)));
 
 		// Compute LMST
+		this.lmstDeg = normalizeDegrees(convertJulianDayToLMST());
 		this.lmst = LocalTime.ofNanoOfDay(
-				(long) (86_400_000_000_000L * (normalizeDegrees(convertJulianDayToLMST())/360.0)));
+				(long) (86_400_000_000_000L * (lmstDeg/360.0)));
 	}
 
 	public LocalDateTime getLocalDateTime() {
@@ -80,6 +82,14 @@ public class TimeComputations {
 
 	public LocalTime getGast() {
 		return gast;
+	}
+
+	public double getGmstDeg() {
+		return gmstDeg;
+	}
+
+	public double getLmstDeg() {
+		return lmstDeg;
 	}
 
 	public LocalTime getLmst() {

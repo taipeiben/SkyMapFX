@@ -7,8 +7,10 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import com.browniebytes.javafx.control.DateTimePicker?>
+<?import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas?>
 
 <BorderPane
 		xmlns:fx="http://javafx.com/fxml"
@@ -83,6 +85,12 @@
 	</left>
 
 	<center>
+		<StackPane fx:id="canvasPane">
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10"/>
+			</padding>
+			<SkyMapCanvas fx:id="canvas"/>
+		</StackPane>
 	</center>
 
 </BorderPane>

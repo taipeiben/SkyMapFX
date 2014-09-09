@@ -6,14 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 /**
  * This class encapsulates all the data that is stored for a star.
  */
 @Entity(name = "STARS")
-@NamedQueries(
-	@NamedQuery(name = "findStarByCatalogId", query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.catalogNumber = :catalogNumber")
-)
+@NamedQueries({
+		@NamedQuery(
+			name = "findStarByCatalogId",
+			query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.catalogNumber = :catalogNumber"),
+		@NamedQuery(
+			name = "findAllStarByPositiveAltitude",
+			query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.altitude > 0")
+	})
 public class Star {
 
 	/**
@@ -213,6 +219,11 @@ public class Star {
 		return altitude;
 	}
 
+	@Transient
+	public Double getAltitudeInRadians() {
+		return Math.toRadians(altitude);
+	}
+
 	/**
 	 * Sets the altitude of the star
 	 * @param altitude The altitude value to use
@@ -227,6 +238,11 @@ public class Star {
 	 */
 	public Double getAzimuth() {
 		return azimuth;
+	}
+
+	@Transient
+	public Double getAzimuthInRadians() {
+		return Math.toRadians(azimuth);
 	}
 
 	/**

@@ -3,6 +3,7 @@ package com.browniebytes.javafx.skymapfx.gui.controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -31,6 +33,7 @@ import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
 import com.browniebytes.javafx.skymapfx.data.dto.TimeComputations;
 import com.browniebytes.javafx.skymapfx.data.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
+import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas;
 import com.google.inject.Inject;
 
 /**
@@ -60,6 +63,10 @@ public class PrimaryController implements Initializable {
 	@FXML private Label gmstLabel;
 	@FXML private Label gastLabel;
 	@FXML private Label lmstLabel;
+
+	// Canvas
+	@FXML private StackPane canvasPane;
+	@FXML private SkyMapCanvas canvas;
 
 	// ========================================
 	// Guice injected dependencies
@@ -111,6 +118,21 @@ public class PrimaryController implements Initializable {
 					} else {
 						stopTimer();
 					}
+				});
+
+		canvasPane.widthProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					final double canvasPaneHeight = canvasPane.getHeight();
+					final double desired = Math.min(canvasPaneHeight, newValue.doubleValue());
+					canvas.widthProperty().set(desired-20.0);
+					canvas.heightProperty().set(desired-20.0);
+				});
+		canvasPane.heightProperty().addListener(
+				(observable, oldValue, newValue) -> {
+					final double canvasPaneWidth = canvasPane.getWidth();
+					final double desired = Math.min(canvasPaneWidth, newValue.doubleValue());
+					canvas.heightProperty().set(desired-20.0);
+					canvas.widthProperty().set(desired-20.0);
 				});
 	}
 
@@ -216,6 +238,10 @@ public class PrimaryController implements Initializable {
 					localDateTime,
 					Double.parseDouble(longitudeTextField.textProperty().get())); // TODO: process NumberFormatException
 
+			starDao.updateAltitudeAzimuth(
+					Math.toRadians(Double.parseDouble(latitudeTextField.getText())),
+					Math.toRadians(computations.getLmstDeg()));
+
 			return computations;
 		}
 
@@ -226,6 +252,8 @@ public class PrimaryController implements Initializable {
 		protected void done() {
 			try {
 				final TimeComputations computations = get();
+
+				final List<Star> starList = starDao.findAllByPositiveAltitude();
 
 				Platform.runLater(
 						() -> {
@@ -243,35 +271,7 @@ public class PrimaryController implements Initializable {
 							gastLabel.setText(TIME_FORMATTER.format(computations.getGast()));
 							lmstLabel.setText(TIME_FORMATTER.format(computations.getLmst()));
 
-							// TODO: Remove this
-							final Star polaris = starDao.findByCatalogId(11767L);
-							final double polRaDeg = polaris.getRa();
-							double temp = polRaDeg / 15;
-							final int polRaHr = (int) Math.floor(temp);
-							temp = (temp - polRaHr) * 60;
-							final int polRaMin = (int) Math.floor(temp);
-							temp = (temp - polRaMin) * 60;
-							final double polRaSec = Math.floor(temp);
-
-							temp = polaris.getDec();
-							final int polDecDeg = (int) Math.floor(temp);
-							temp = (temp - polDecDeg) * 60;
-							final int polDecMin = (int) Math.floor(temp);
-							temp = (temp - polDecMin) * 60;
-							final double polDecSec = Math.floor(temp);
-
-							LOGGER.debug(
-									String.format(
-											"Polaris: RA: %f (%dh %dm %.1f), DEC: %f (%dh %dm %.1f), MAG: %f",
-											polaris.getRa(),
-											polRaHr,
-											polRaMin,
-											polRaSec,
-											polaris.getDec(),
-											polaris.getDec().intValue(),
-											polDecMin,
-											polDecSec,
-											polaris.getMagnitude()));
+							canvas.redraw(true, starList);
 						});
 			} catch (ExecutionException ex) {
 				// TODO: handle exception
