@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
-import com.browniebytes.javafx.skymapfx.data.entities.Star;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 import com.google.inject.Inject;
 

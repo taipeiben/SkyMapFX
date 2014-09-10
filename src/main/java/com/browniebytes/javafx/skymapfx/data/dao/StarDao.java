@@ -22,7 +22,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.browniebytes.javafx.skymapfx.data.entities.Star;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 import com.google.inject.Inject;
 
 public class StarDao {

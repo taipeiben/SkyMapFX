@@ -31,7 +31,7 @@ import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
 import com.browniebytes.javafx.skymapfx.data.domain.TimeComputations;
-import com.browniebytes.javafx.skymapfx.data.entities.Star;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
 import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas;
 import com.google.inject.Inject;

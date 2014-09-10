@@ -13,7 +13,7 @@ import javafx.scene.text.TextAlignment;
 
 import com.browniebytes.javafx.skymapfx.data.domain.Constellations;
 import com.browniebytes.javafx.skymapfx.data.domain.Constellations.ConstellationSegment;
-import com.browniebytes.javafx.skymapfx.data.entities.Star;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 
 /**
  * This Canvas is used to draw the star map using JavaFX's 2D drawing capabilities.
