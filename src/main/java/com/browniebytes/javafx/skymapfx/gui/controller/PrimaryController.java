@@ -3,7 +3,7 @@ package com.browniebytes.javafx.skymapfx.gui.controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,7 +30,7 @@ import com.browniebytes.javafx.control.DateTimePicker;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
-import com.browniebytes.javafx.skymapfx.data.dto.TimeComputations;
+import com.browniebytes.javafx.skymapfx.data.domain.TimeComputations;
 import com.browniebytes.javafx.skymapfx.data.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
 import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas;
@@ -63,6 +63,12 @@ public class PrimaryController implements Initializable {
 	@FXML private Label gmstLabel;
 	@FXML private Label gastLabel;
 	@FXML private Label lmstLabel;
+
+	// Map Controls
+	@FXML private CheckBox drawConstellationLinesCheckBox;
+	@FXML private CheckBox showConstellationNamesCheckBox;
+	@FXML private CheckBox drawAltAziCheckBox;
+	@FXML private CheckBox flipHorizontalCheckBox;
 
 	// Canvas
 	@FXML private StackPane canvasPane;
@@ -253,7 +259,7 @@ public class PrimaryController implements Initializable {
 			try {
 				final TimeComputations computations = get();
 
-				final List<Star> starList = starDao.findAllByPositiveAltitude();
+				final Map<Long, Star> starList = starDao.findAllByPositiveAltitude();
 
 				Platform.runLater(
 						() -> {
@@ -271,7 +277,12 @@ public class PrimaryController implements Initializable {
 							gastLabel.setText(TIME_FORMATTER.format(computations.getGast()));
 							lmstLabel.setText(TIME_FORMATTER.format(computations.getLmst()));
 
-							canvas.redraw(true, starList);
+							canvas.redraw(
+									drawConstellationLinesCheckBox.isSelected(),
+									showConstellationNamesCheckBox.isSelected(),
+									drawAltAziCheckBox.isSelected(),
+									flipHorizontalCheckBox.isSelected(),
+									starList);
 						});
 			} catch (ExecutionException ex) {
 				// TODO: handle exception

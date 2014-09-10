@@ -1,4 +1,4 @@
-package com.browniebytes.javafx.skymapfx.data.dto;
+package com.browniebytes.javafx.skymapfx.data.domain;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

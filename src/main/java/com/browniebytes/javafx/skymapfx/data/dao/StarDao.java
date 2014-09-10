@@ -2,7 +2,9 @@ package com.browniebytes.javafx.skymapfx.data.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -51,7 +53,7 @@ public class StarDao {
 		return star;
 	}
 
-	public List<Star> findAllByPositiveAltitude() {
+	public Map<Long, Star> findAllByPositiveAltitude() {
 
 		final long start = System.currentTimeMillis();
 
@@ -67,7 +69,11 @@ public class StarDao {
 						starList.size(),
 						System.currentTimeMillis() - start));
 
-		return starList;
+		final Map<Long, Star> starMap = new HashMap<>();
+		for (Star s : starList) {
+			starMap.put(s.getCatalogNumber(), s);
+		}
+		return starMap;
 	}
 
 	public void saveStars(final List<Star> starList) {

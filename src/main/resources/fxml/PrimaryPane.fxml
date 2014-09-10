@@ -81,6 +81,45 @@
 					</AnchorPane>
 				</VBox>
 			</TitledPane>
+			<TitledPane text="Map Controls">
+				<VBox>
+					<padding>
+						<Insets top="10" right="10" bottom="10" left="10"/>
+					</padding>
+					<AnchorPane>
+						<CheckBox
+								fx:id="drawConstellationLinesCheckBox"
+								text="Constellation Lines"
+								selected="true"
+								AnchorPane.leftAnchor="0">
+						</CheckBox>
+					</AnchorPane>
+					<AnchorPane>
+						<CheckBox
+								fx:id="showConstellationNamesCheckBox"
+								text="Constellation Names"
+								selected="true"
+								AnchorPane.leftAnchor="0">
+						</CheckBox>
+					</AnchorPane>
+					<AnchorPane>
+						<CheckBox
+								fx:id="drawAltAziCheckBox"
+								text="Draw Alt/Azi Grid Lines"
+								selected="true"
+								AnchorPane.leftAnchor="0">
+						</CheckBox>
+					</AnchorPane>
+					<AnchorPane>
+						<CheckBox
+								fx:id="flipHorizontalCheckBox"
+								text="Flip Horizontally"
+								selected="true"
+								AnchorPane.leftAnchor="0">
+						</CheckBox>
+					</AnchorPane>
+				</VBox>
+			</TitledPane>
 		</VBox>
 	</left>
 
