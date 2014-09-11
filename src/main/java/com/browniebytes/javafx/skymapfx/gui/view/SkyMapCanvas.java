@@ -212,7 +212,9 @@ public class SkyMapCanvas extends Canvas {
 	 */
 	private double getStarDrawSize(final double magnitude, final double d) {
 		final double scale = d / 280.0;
-		if (magnitude >= 0 && magnitude < 1) {
+		if (magnitude < 0) {
+			return 2.5 * scale;
+		} else if (magnitude >= 0 && magnitude < 1) {
 			return 2.0 * scale;
 		} else if (magnitude >= 1 && magnitude < 2) {
 			return 1.3 * scale;
