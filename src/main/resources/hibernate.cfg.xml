@@ -26,7 +26,7 @@
 		<property name="hibernate.c3p0.idle_test_period">3000</property>
 
 		<!-- Mappings -->
-		<mapping class="com.browniebytes.javafx.skymapfx.data.entities.Star" />
+		<mapping class="com.browniebytes.javafx.skymapfx.data.domain.entities.Star" />
 
 	</session-factory>
 

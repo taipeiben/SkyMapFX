@@ -15,10 +15,10 @@ import javax.persistence.Transient;
 @NamedQueries({
 		@NamedQuery(
 			name = "findStarByCatalogId",
-			query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.catalogNumber = :catalogNumber"),
+			query = "from com.browniebytes.javafx.skymapfx.data.domain.entities.Star s where s.catalogNumber = :catalogNumber"),
 		@NamedQuery(
 			name = "findAllStarByPositiveAltitude",
-			query = "from com.browniebytes.javafx.skymapfx.data.entities.Star s where s.altitude > 0")
+			query = "from com.browniebytes.javafx.skymapfx.data.domain.entities.Star s where s.altitude > 0")
 	})
 public class Star {
 
