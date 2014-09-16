@@ -31,6 +31,14 @@ public enum Constellations {
 				new ConstellationSegment(51172, 46515),
 				new ConstellationSegment(51172, 53502),
 			}),
+	APUS(
+			"Apus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(72370, 80047),
+				new ConstellationSegment(80047, 81852),
+				new ConstellationSegment(81852, 81065),
+				new ConstellationSegment(81065, 80047),
+			}),
 	AQUARIUS(
 			"Aquarius",
 			new ConstellationSegment[] {
@@ -64,6 +72,18 @@ public enum Constellations {
 				new ConstellationSegment(93805, 96468),
 				new ConstellationSegment(96468, 99473),
 			}),
+	ARA(
+			"Ara",
+			new ConstellationSegment[] {
+				new ConstellationSegment(85792, 85258),
+				new ConstellationSegment(85792, 88714),
+				new ConstellationSegment(85258, 85267),
+				new ConstellationSegment(85267, 85727),
+				new ConstellationSegment(85727, 82363),
+				new ConstellationSegment(82363, 83081),
+				new ConstellationSegment(83081, 83153),
+				new ConstellationSegment(83153, 85792),
+			}),
 	ARIES(
 			"Aries",
 			new ConstellationSegment[] {
@@ -85,6 +105,19 @@ public enum Constellations {
 				new ConstellationSegment(28358, 24608),
 				new ConstellationSegment(24608, 23416),
 				new ConstellationSegment(23416, 23453),
+			}),
+	BOOTES(
+			"Boötes",
+			new ConstellationSegment[] {
+				new ConstellationSegment(69673, 71795),
+				new ConstellationSegment(69673, 67927),
+				new ConstellationSegment(67927, 67459),
+				new ConstellationSegment(69673, 72105),
+				new ConstellationSegment(69673, 71053),
+				new ConstellationSegment(72105, 74666),
+				new ConstellationSegment(74666, 73555),
+				new ConstellationSegment(73555, 71075),
+				new ConstellationSegment(71075, 71053),
 			}),
 	CAELUM(
 			"Caelum",
@@ -118,6 +151,22 @@ public enum Constellations {
 			new ConstellationSegment[] {
 				new ConstellationSegment(63125, 61317),
 			}),
+	CANIS_MAJOR(
+			"Canis Major",
+			new ConstellationSegment[] {
+				new ConstellationSegment(33160, 34045),
+				new ConstellationSegment(34045, 33347),
+				new ConstellationSegment(33347, 33160),
+				new ConstellationSegment(33347, 32349),
+				new ConstellationSegment(32349, 30324),
+				new ConstellationSegment(30324, 31592),
+				new ConstellationSegment(31592, 33152),
+				new ConstellationSegment(33152, 33579),
+				new ConstellationSegment(33579, 34444),
+				new ConstellationSegment(34444, 35904),
+				new ConstellationSegment(34444, 33977),
+				new ConstellationSegment(33977, 32349),
+			}),
 	CANIS_MINOR(
 			"Canis Minor",
 			new ConstellationSegment[] {
@@ -135,6 +184,21 @@ public enum Constellations {
 				new ConstellationSegment(106985, 104139),
 				new ConstellationSegment(104139, 100027),
 			}),
+	CARINA(
+			"Carina",
+			new ConstellationSegment[] {
+				new ConstellationSegment(45238, 50099),
+				new ConstellationSegment(50099, 52419),
+				new ConstellationSegment(52419, 51576),
+				new ConstellationSegment(51576, 50371),
+				new ConstellationSegment(50371, 46974),
+				new ConstellationSegment(46974, 41037),
+				new ConstellationSegment(41037, 38827),
+				new ConstellationSegment(38827, 30438),
+				new ConstellationSegment(46974, 47854),
+				new ConstellationSegment(47854, 48002),
+				new ConstellationSegment(48002, 45238),
+			}),
 	CASSIOPEIA(
 			"Cassiopeia",
 			new ConstellationSegment[] {
@@ -142,6 +206,32 @@ public enum Constellations {
 				new ConstellationSegment(3179, 4427),
 				new ConstellationSegment(4427, 6686),
 				new ConstellationSegment(6686, 8886),
+			}),
+	CENTAURUS(
+			"Centaurus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(73334, 71352),
+				new ConstellationSegment(71352, 68245),
+				new ConstellationSegment(68245, 68862),
+				new ConstellationSegment(68862, 70090),
+				new ConstellationSegment(70090, 68933),
+				new ConstellationSegment(68933, 67464),
+				new ConstellationSegment(67464, 67472),
+				new ConstellationSegment(67464, 65936),
+				new ConstellationSegment(65936, 65109),
+				new ConstellationSegment(67472, 68002),
+				new ConstellationSegment(68002, 68282),
+				new ConstellationSegment(68282, 68245),
+				new ConstellationSegment(68002, 66657),
+				new ConstellationSegment(66657, 61932),
+				new ConstellationSegment(61932, 68002),
+				new ConstellationSegment(66657, 68702),
+				new ConstellationSegment(68702, 71683),
+				new ConstellationSegment(61932, 60823),
+				new ConstellationSegment(60823, 59196),
+				new ConstellationSegment(60823, 59449),
+				new ConstellationSegment(59196, 55425),
+				new ConstellationSegment(59449, 56243),
 			}),
 	CEPHEUS(
 			"Cepheus",
@@ -178,6 +268,57 @@ public enum Constellations {
 				new ConstellationSegment(3419, 8102),
 				new ConstellationSegment(8102, 8645),
 			}),
+	CHAMAELEON(
+			"Chamaeleon",
+			new ConstellationSegment[] {
+				new ConstellationSegment(40702, 51839),
+				new ConstellationSegment(51839, 58484),
+				new ConstellationSegment(58484, 60000),
+				new ConstellationSegment(60000, 52595),
+				new ConstellationSegment(52595, 51839),
+			}),
+	CIRCINUS(
+			"Circinus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(71908, 74824),
+				new ConstellationSegment(71908, 75323),
+			}),
+	COLUMBA(
+			"Columba",
+			new ConstellationSegment[] {
+				new ConstellationSegment(25859, 26634),
+				new ConstellationSegment(26634, 27628),
+				new ConstellationSegment(27628, 28328),
+				new ConstellationSegment(27628, 28199),
+				new ConstellationSegment(28199, 29807),
+				new ConstellationSegment(29807, 30277),
+			}),
+	COMA_BERENICES(
+			"Coma Berenices",
+			new ConstellationSegment[] {
+				new ConstellationSegment(64241, 64394),
+				new ConstellationSegment(64394, 60742),
+			}),
+	CORONA_AUSTRALIS(
+			"Corona Australis",
+			new ConstellationSegment[] {
+				new ConstellationSegment(91875, 93174),
+				new ConstellationSegment(93174, 93825),
+				new ConstellationSegment(93825, 94114),
+				new ConstellationSegment(94114, 94160),
+				new ConstellationSegment(94160, 94005),
+				new ConstellationSegment(94005, 93542),
+			}),
+	CORONA_BOREALIS(
+			"Corona Borealis",
+			new ConstellationSegment[] {
+				new ConstellationSegment(76127, 75695),
+				new ConstellationSegment(75695, 76267),
+				new ConstellationSegment(76267, 76952),
+				new ConstellationSegment(76952, 77512),
+				new ConstellationSegment(77512, 78159),
+				new ConstellationSegment(78159, 78493),
+			}),
 	CORVUS(
 			"Corvus",
 			new ConstellationSegment[] {
@@ -187,6 +328,19 @@ public enum Constellations {
 				new ConstellationSegment(59316, 61359),
 				new ConstellationSegment(61359, 60965),
 				new ConstellationSegment(60965, 61174),
+			}),
+	CRATER(
+			"Crater",
+			new ConstellationSegment[] {
+				new ConstellationSegment(53740, 54682),
+				new ConstellationSegment(54682, 55705),
+				new ConstellationSegment(55705, 55282),
+				new ConstellationSegment(55282, 53740),
+				new ConstellationSegment(55282, 55687),
+				new ConstellationSegment(55687, 56633),
+				new ConstellationSegment(56633, 58188),
+				new ConstellationSegment(58188, 57283),
+				new ConstellationSegment(57283, 55705),
 			}),
 	CRUX(
 			"Crux",
@@ -352,6 +506,52 @@ public enum Constellations {
 				new ConstellationSegment(79992, 79101),
 				new ConstellationSegment(79101, 77760),
 			}),
+	HOROLOGIUM(
+			"Horologium",
+			new ConstellationSegment[] {
+				new ConstellationSegment(19747, 12653),
+				new ConstellationSegment(12653, 12225),
+				new ConstellationSegment(12225, 12484),
+				new ConstellationSegment(12484, 14240),
+				new ConstellationSegment(14240, 13884),
+			}),
+	HYDRA(
+			"Hydra",
+			new ConstellationSegment[] {
+				new ConstellationSegment(64962, 64166),
+				new ConstellationSegment(64166, 57936),
+				new ConstellationSegment(57936, 56343),
+				new ConstellationSegment(56343, 52943),
+				new ConstellationSegment(52943, 51069),
+				new ConstellationSegment(51069, 49841),
+				new ConstellationSegment(49841, 48356),
+				new ConstellationSegment(48356, 46390),
+				new ConstellationSegment(46390, 46509),
+				new ConstellationSegment(46509, 46776),
+				new ConstellationSegment(46776, 45336),
+				new ConstellationSegment(45336, 43813),
+				new ConstellationSegment(43813, 43234),
+				new ConstellationSegment(43234, 43109),
+				new ConstellationSegment(43109, 42313),
+				new ConstellationSegment(42313, 42402),
+				new ConstellationSegment(42402, 42799),
+				new ConstellationSegment(42799, 43234),
+			}),
+	HYDRUS(
+			"Hydrus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(9236, 17678),
+				new ConstellationSegment(17678, 2021),
+				new ConstellationSegment(2021, 9236),
+			}),
+	INDUS(
+			"Indus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(101772, 105319),
+				new ConstellationSegment(105319, 108431),
+				new ConstellationSegment(108431, 103227),
+				new ConstellationSegment(103227, 101772),
+			}),
 	LACERTA(
 			"Lacerta",
 			new ConstellationSegment[] {
@@ -380,6 +580,14 @@ public enum Constellations {
 				new ConstellationSegment(54879, 49669),
 				new ConstellationSegment(49669, 49583),
 			}),
+	LEO_MINOR(
+			"Leo Minor",
+			new ConstellationSegment[] {
+				new ConstellationSegment(53229, 51233),
+				new ConstellationSegment(51233, 49593),
+				new ConstellationSegment(49593, 53229),
+				new ConstellationSegment(49593, 46952),
+			}),
 	LEPUS(
 			"Lepus",
 			new ConstellationSegment[] {
@@ -394,6 +602,30 @@ public enum Constellations {
 				new ConstellationSegment(28103, 28910),
 				new ConstellationSegment(28910, 27654),
 				new ConstellationSegment(27654, 27072),
+			}),
+	LIBRA(
+			"Libra",
+			new ConstellationSegment[] {
+				new ConstellationSegment(74785, 76333),
+				new ConstellationSegment(76333, 72622),
+				new ConstellationSegment(72622, 74785),
+				new ConstellationSegment(72622, 73714),
+				new ConstellationSegment(76333, 76470),
+				new ConstellationSegment(76470, 76600),
+			}),
+	LUPUS(
+			"Lupus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(75177, 77634),
+				new ConstellationSegment(77634, 78384),
+				new ConstellationSegment(78384, 75177),
+				new ConstellationSegment(78384, 76297),
+				new ConstellationSegment(76297, 75141),
+				new ConstellationSegment(75141, 73273),
+				new ConstellationSegment(76297, 75264),
+				new ConstellationSegment(75264, 74395),
+				new ConstellationSegment(74395, 78384),
+				new ConstellationSegment(74395, 71860),
 			}),
 	LYNX(
 			"Lynx",
@@ -415,6 +647,75 @@ public enum Constellations {
 				new ConstellationSegment(91971, 92791),
 				new ConstellationSegment(92791, 93194),
 				new ConstellationSegment(93194, 92420),
+			}),
+	MENSA(
+			"Mensa",
+			new ConstellationSegment[] {
+				new ConstellationSegment(29271, 25918),
+				new ConstellationSegment(25918, 22871),
+				new ConstellationSegment(22871, 23467),
+			}),
+	MICROSCOPIUM(
+			"Microscopium",
+			new ConstellationSegment[] {
+				new ConstellationSegment(102831, 103738),
+				new ConstellationSegment(103738, 105140),
+			}),
+	MONOCEROS(
+			"Monoceros",
+			new ConstellationSegment[] {
+				new ConstellationSegment(37447, 39863),
+				new ConstellationSegment(39863, 34769),
+				new ConstellationSegment(34769, 30867),
+				new ConstellationSegment(30867, 29651),
+				new ConstellationSegment(34769, 32578),
+				new ConstellationSegment(32578, 31216),
+				new ConstellationSegment(31216, 30419),
+				new ConstellationSegment(31216, 31978),
+				new ConstellationSegment(30419, 32578),
+			}),
+	MUSCA(
+			"Musca",
+			new ConstellationSegment[] {
+				new ConstellationSegment(61585, 62322),
+				new ConstellationSegment(62322, 63613),
+				new ConstellationSegment(63613, 61199),
+				new ConstellationSegment(61199, 61585),
+				new ConstellationSegment(61585, 59929),
+				new ConstellationSegment(59929, 57363),
+			}),
+	NORMA(
+			"Norma",
+			new ConstellationSegment[] {
+				new ConstellationSegment(78914, 80582),
+				new ConstellationSegment(80582, 80000),
+				new ConstellationSegment(80000, 78639),
+				new ConstellationSegment(78639, 78914),
+			}),
+	OCTANS(
+			"Octans",
+			new ConstellationSegment[] {
+				new ConstellationSegment(70638, 107089),
+				new ConstellationSegment(107089, 112405),
+				new ConstellationSegment(112405, 70638),
+			}),
+	OPHIUCHUS(
+			"Ophiuchus",
+			new ConstellationSegment[] {
+				new ConstellationSegment(86032, 83000),
+				new ConstellationSegment(83000, 79593),
+				new ConstellationSegment(83000, 81377),
+				new ConstellationSegment(81377, 84012),
+				new ConstellationSegment(84012, 86742),
+				new ConstellationSegment(86742, 86032),
+				new ConstellationSegment(81377, 80628),
+				new ConstellationSegment(80628, 79882),
+				new ConstellationSegment(79882, 79593),
+				new ConstellationSegment(81377, 80894),
+				new ConstellationSegment(80894, 80569),
+				new ConstellationSegment(80569, 80473),
+				new ConstellationSegment(84012, 84970),
+				new ConstellationSegment(84970, 85423),
 			}),
 	ORION(
 			"Orion",
@@ -441,6 +742,22 @@ public enum Constellations {
 				new ConstellationSegment(28614, 29038),
 				new ConstellationSegment(29038, 27913),
 				new ConstellationSegment(29426, 28691),
+			}),
+	PAVO(
+			"Pavo",
+			new ConstellationSegment[] {
+				new ConstellationSegment(100751, 105858),
+				new ConstellationSegment(105858, 102395),
+				new ConstellationSegment(102395, 99240),
+				new ConstellationSegment(99240, 100751),
+				new ConstellationSegment(99240, 98495),
+				new ConstellationSegment(99240, 91792),
+				new ConstellationSegment(99240, 93015),
+				new ConstellationSegment(99240, 92609),
+				new ConstellationSegment(92609, 90098),
+				new ConstellationSegment(90098, 88866),
+				new ConstellationSegment(88866, 93015),
+				new ConstellationSegment(88866, 86929),
 			}),
 	PEGASUS(
 			"Pegasus",
@@ -501,6 +818,12 @@ public enum Constellations {
 				new ConstellationSegment(5165, 7083),
 				new ConstellationSegment(8837, 7083),
 			}),
+	PICTOR(
+			"Pictor",
+			new ConstellationSegment[] {
+				new ConstellationSegment(32607, 27530),
+				new ConstellationSegment(27530, 27321),
+			}),
 	PISCES(
 			"Pisces",
 			new ConstellationSegment[] {
@@ -535,6 +858,35 @@ public enum Constellations {
 				new ConstellationSegment(111188, 113246),
 				new ConstellationSegment(113246, 113368),
 			}),
+	PUPPIS(
+			"Puppis",
+			new ConstellationSegment[] {
+				new ConstellationSegment(39953, 39429),
+				new ConstellationSegment(39429, 39757),
+				new ConstellationSegment(39757, 38170),
+				new ConstellationSegment(38170, 38070),
+				new ConstellationSegment(38070, 37677),
+				new ConstellationSegment(37677, 36917),
+				new ConstellationSegment(36917, 37229),
+				new ConstellationSegment(37229, 38170),
+				new ConstellationSegment(36917, 35264),
+				new ConstellationSegment(35264, 31685),
+				new ConstellationSegment(31685, 30438),
+			}),
+	PYXIS(
+			"Pyxis",
+			new ConstellationSegment[] {
+				new ConstellationSegment(43409, 42828),
+				new ConstellationSegment(42828, 42515),
+			}),
+	RETICULUM(
+			"Reticulum",
+			new ConstellationSegment[] {
+				new ConstellationSegment(19780, 17440),
+				new ConstellationSegment(17440, 18597),
+				new ConstellationSegment(18597, 19921),
+				new ConstellationSegment(19921, 19780),
+			}),
 	SAGITTA(
 			"Sagitta",
 			new ConstellationSegment[] {
@@ -542,6 +894,58 @@ public enum Constellations {
 				new ConstellationSegment(98337, 97365),
 				new ConstellationSegment(97365, 96757),
 				new ConstellationSegment(97365, 96837),
+			}),
+	SAGITTARIUS(
+			"Sagittarius",
+			new ConstellationSegment[] {
+				new ConstellationSegment(88635, 90185),
+				new ConstellationSegment(90185, 89931),
+				new ConstellationSegment(89931, 88635),
+				new ConstellationSegment(89931, 90496),
+				new ConstellationSegment(90496, 92041),
+				new ConstellationSegment(92041, 89931),
+				new ConstellationSegment(92041, 93506),
+				new ConstellationSegment(92041, 92855),
+				new ConstellationSegment(93506, 90185),
+				new ConstellationSegment(93506, 93864),
+				new ConstellationSegment(93864, 92855),
+				new ConstellationSegment(92855, 93085),
+				new ConstellationSegment(93085, 93683),
+				new ConstellationSegment(93683, 94820),
+				new ConstellationSegment(94820, 95168),
+				new ConstellationSegment(93864, 96406),
+				new ConstellationSegment(96406, 98688),
+				new ConstellationSegment(98688, 98412),
+				new ConstellationSegment(98412, 98032),
+				new ConstellationSegment(98032, 95347),
+				new ConstellationSegment(98032, 95294),
+				new ConstellationSegment(90185, 89642),
+				new ConstellationSegment(88635, 87072),
+				new ConstellationSegment(90496, 89341),
+			}),
+	SERPENS(
+			"Serpens",
+			new ConstellationSegment[] {
+				new ConstellationSegment(76852, 77450),
+				new ConstellationSegment(77450, 78072),
+				new ConstellationSegment(78072, 77233),
+				new ConstellationSegment(77233, 76852),
+				new ConstellationSegment(77233, 76276),
+				new ConstellationSegment(76276, 77070),
+				new ConstellationSegment(77070, 77622),
+				new ConstellationSegment(77622, 77516),
+				new ConstellationSegment(77516, 79195),
+				new ConstellationSegment(84880, 86263),
+				new ConstellationSegment(86263, 86565),
+				new ConstellationSegment(86565, 89962),
+				new ConstellationSegment(89962, 92946),
+			}),
+	SEXTANS(
+			"Sextans",
+			new ConstellationSegment[] {
+				new ConstellationSegment(51362, 51437),
+				new ConstellationSegment(51437, 49641),
+				new ConstellationSegment(49641, 48437),
 			}),
 	SCORPIUS(
 			"Scorpius",
@@ -591,12 +995,34 @@ public enum Constellations {
 				new ConstellationSegment(16083, 18907),
 				new ConstellationSegment(15900, 16852),
 			}),
+	TELESCOPIUM(
+			"Telescopium",
+			new ConstellationSegment[] {
+				new ConstellationSegment(90422, 90568)
+			}),
 	TRIANGULUM(
 			"Triangulum",
 			new ConstellationSegment[] {
 				new ConstellationSegment(10064, 8796),
 				new ConstellationSegment(8796, 10559),
 				new ConstellationSegment(10559, 10064),
+			}),
+	TRIANGULUM_AUSTRALE(
+			"Triangulum Australe",
+			new ConstellationSegment[] {
+				new ConstellationSegment(82273, 77952),
+				new ConstellationSegment(77952, 74946),
+				new ConstellationSegment(74946, 82273),
+			}),
+	TUCANA(
+			"Tucana",
+			new ConstellationSegment[] {
+				new ConstellationSegment(2484, 1599),
+				new ConstellationSegment(1599, 118322),
+				new ConstellationSegment(118322, 110838),
+				new ConstellationSegment(110838, 110130),
+				new ConstellationSegment(110130, 114996),
+				new ConstellationSegment(114996, 2484),
 			}),
 	URSA_MAJOR(
 			"Ursa Major",
@@ -632,6 +1058,18 @@ public enum Constellations {
 				new ConstellationSegment(72607, 75097),
 				new ConstellationSegment(75097, 79822),
 				new ConstellationSegment(79822, 77055),
+			}),
+	VELA(
+			"Vela",
+			new ConstellationSegment[] {
+				new ConstellationSegment(39953, 44816),
+				new ConstellationSegment(44816, 46651),
+				new ConstellationSegment(46651, 50191),
+				new ConstellationSegment(50191, 52727),
+				new ConstellationSegment(52727, 48774),
+				new ConstellationSegment(48774, 45941),
+				new ConstellationSegment(45941, 42913),
+				new ConstellationSegment(42913, 39953),
 			}),
 	VIRGO(
 			"Virgo",

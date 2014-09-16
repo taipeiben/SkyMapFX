@@ -120,6 +120,9 @@ public class SkyMapCanvas extends Canvas {
 	private void drawConstellationLines(final double d, final Map<Long, Star> starMap) {
 		final GraphicsContext g = getGraphicsContext2D();
 		g.setStroke(Color.color(0.0, 0.0, 0.75));
+		g.setTextAlign(TextAlignment.CENTER);
+
+		g.setFont(Font.font("Lucida Sans", getConstellationNameFontSize(d)));
 		g.setFill(Color.color(0.6, 0.76, 0.9));
 
 		for (Constellations constellation : Constellations.values()) {
@@ -204,6 +207,18 @@ public class SkyMapCanvas extends Canvas {
 		return new double[] { xcoord, ycoord };
 	}
 
+	private double getConstellationNameFontSize(final double d) {
+		double fontSize = 10.0;
+		if (d >= 500.0 && d < 1000.0) {
+			fontSize = 12;
+		} else if (d >= 1000.0 && d < 1500.0) {
+			fontSize = 14;
+		} else if (d >= 1500.0) {
+			fontSize = 16;
+		}
+		return fontSize;
+	}
+
 	/**
 	 * Computes star size based on magnitude and size of the map
 	 * @param magnitude Magnitude
@@ -272,7 +287,7 @@ public class SkyMapCanvas extends Canvas {
 
 		// Draw N/S/E/W
 		g.setTextAlign(TextAlignment.CENTER);
-		g.setFont(Font.font("Sans", 10));
+		g.setFont(Font.font("SansSerif", 10));
 		g.setFill(Color.BLACK);
 		drawRotatedAndTranslatedText(g, "N", PAD+d/2, PAD-2, 0);
 		drawRotatedAndTranslatedText(g, (flipHorizontal) ? "W" : "E", PAD+d+3, PAD+d/2-1, 90);
