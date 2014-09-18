@@ -177,15 +177,41 @@ public class SkyMapCanvas extends Canvas {
 	private void drawStars(final double d, final Map<Long, Star> starMap) {
 
 		final GraphicsContext g = getGraphicsContext2D();
-		g.setFill(Color.WHITE);
 
 		for (Entry<Long, Star> entry : starMap.entrySet()) {
 			final Star star = entry.getValue();
 
 			final double[] xy = getXYFromAltAzi(d, star.getAltitudeInRadians(), star.getAzimuthInRadians());
-
 			final double size = getStarDrawSize(star.getMagnitude(), d);
+
+			g.setFill(getStarColor(star));
 			g.fillOval(xy[0]-size/2, xy[1]-size/2, size, size);
+		}
+	}
+
+	/**
+	 * Selects color based on spectral type of star
+	 * @param star The star in question
+	 * @return Color based on spectral type
+	 */
+	private Color getStarColor(final Star star) {
+		final char type = star.getSpectralType().charAt(0);
+
+		switch (type) {
+		case 'M':
+			return Color.rgb(255, 219, 178);
+		case 'K':
+			return Color.rgb(246, 235, 224);
+		case 'G':
+			return Color.rgb(255, 255, 247);
+		case 'F':
+			return Color.WHITE;
+		case 'A':
+			return Color.WHITE;
+		case 'B':
+			return Color.rgb(170, 186, 222);
+		default:
+			return Color.WHITE;
 		}
 	}
 
