@@ -199,17 +199,19 @@ public class SkyMapCanvas extends Canvas {
 
 		switch (type) {
 		case 'M':
-			return Color.rgb(255, 219, 178);
+			return Color.rgb(254, 96, 79);
 		case 'K':
-			return Color.rgb(246, 235, 224);
+			return Color.rgb(255, 163, 80);
 		case 'G':
-			return Color.rgb(255, 255, 247);
+			return Color.rgb(255, 243, 161);
 		case 'F':
-			return Color.WHITE;
+			return Color.rgb(252, 255, 212);
 		case 'A':
-			return Color.WHITE;
+			return Color.rgb(248, 247, 253);
 		case 'B':
-			return Color.rgb(170, 186, 222);
+			return Color.rgb(203, 215, 255);
+		case 'O':
+			return Color.rgb(154, 175, 255);
 		default:
 			return Color.WHITE;
 		}
