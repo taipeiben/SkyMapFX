@@ -32,7 +32,7 @@ import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
 import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
 import com.browniebytes.javafx.skymapfx.data.domain.TimeComputations;
 import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
-import com.browniebytes.javafx.skymapfx.data.io.CatalogFileReader;
+import com.browniebytes.javafx.skymapfx.data.io.HipparcosCatalogFileReader;
 import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas;
 import com.google.inject.Inject;
 
@@ -78,7 +78,7 @@ public class PrimaryController implements Initializable {
 	// Guice injected dependencies
 	// ========================================
 	private final ApplicationSettings applicationSettings;
-	private final CatalogFileReader catalogReader;
+	private final HipparcosCatalogFileReader catalogReader;
 	private final StarDao starDao;
 	private final SessionFactory sessionFactory;
 	private final ScheduledExecutorService executor;
@@ -91,7 +91,7 @@ public class PrimaryController implements Initializable {
 	@Inject
 	public PrimaryController(
 			final ApplicationSettings applicationSettings,
-			final CatalogFileReader catalogReader,
+			final HipparcosCatalogFileReader catalogReader,
 			final StarDao starDao,
 			final SessionFactory sessionFactory,
 			final ScheduledExecutorService executor) {

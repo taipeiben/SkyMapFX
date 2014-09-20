@@ -24,12 +24,12 @@ import com.google.inject.Inject;
  * the entire database on startup was too slow.  Used Spring's JDBC template
  * for easy JDBC.
  */
-public class CatalogFileReader {
+public class HipparcosCatalogFileReader {
 
 	/**
 	 * Logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(CatalogFileReader.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HipparcosCatalogFileReader.class);
 
 	/**
 	 * Application settings
@@ -42,7 +42,7 @@ public class CatalogFileReader {
 	private final StarDao starDao;
 
 	@Inject
-	public CatalogFileReader(
+	public HipparcosCatalogFileReader(
 			final ApplicationSettings applicationSettings,
 			final StarDao starDao) {
 
@@ -56,7 +56,7 @@ public class CatalogFileReader {
 	public void buildStarDatabase() {
 
 		// Create input stream from zip file "hip.data"
-		try (final InputStream is = CatalogFileReader.class.getResourceAsStream("/hip.data")) {
+		try (final InputStream is = HipparcosCatalogFileReader.class.getResourceAsStream("/hip.data")) {
 			final ZipInputStream zis = new ZipInputStream(is);
 			zis.getNextEntry();
 
