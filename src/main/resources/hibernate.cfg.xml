@@ -27,6 +27,7 @@
 
 		<!-- Mappings -->
 		<mapping class="com.browniebytes.javafx.skymapfx.data.domain.entities.Star" />
+		<mapping class="com.browniebytes.javafx.skymapfx.data.domain.entities.DeepSkyObject" />
 
 	</session-factory>
 

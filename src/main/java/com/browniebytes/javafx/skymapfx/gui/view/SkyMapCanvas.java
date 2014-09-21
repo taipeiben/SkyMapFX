@@ -1,6 +1,7 @@
 package com.browniebytes.javafx.skymapfx.gui.view;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 
 import com.browniebytes.javafx.skymapfx.data.domain.Constellations;
 import com.browniebytes.javafx.skymapfx.data.domain.Constellations.ConstellationSegment;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.DeepSkyObject;
 import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 
 /**
@@ -35,8 +37,8 @@ public class SkyMapCanvas extends Canvas {
 		// Add redraw listeners to redraw the grid (empty graph)
 		// when the canvas is being resized.  Celestial elements
 		// will be added at the next redraw.
-		widthProperty().addListener(event -> draw(null));
-		heightProperty().addListener(event -> draw(null));
+		widthProperty().addListener(event -> draw(null, null));
+		heightProperty().addListener(event -> draw(null, null));
 	}
 
 	/**
@@ -74,7 +76,8 @@ public class SkyMapCanvas extends Canvas {
 			final boolean showConstellationNames,
 			final boolean drawAltAziGrid,
 			final boolean flipHorizontal,
-			final Map<Long, Star> starMap) {
+			final Map<Long, Star> starMap,
+			final List<DeepSkyObject> dsoList) {
 
 		this.drawConstellationLines = drawConstellationLines;
 		this.showConstellationNames = showConstellationNames;
@@ -82,7 +85,7 @@ public class SkyMapCanvas extends Canvas {
 		this.flipHorizontal = flipHorizontal;
 
 		try {
-			draw(starMap);
+			draw(starMap, dsoList);
 		} catch (Exception ex) {
 			// TODO: remove
 			ex.printStackTrace();
@@ -92,9 +95,10 @@ public class SkyMapCanvas extends Canvas {
 	/**
 	 * Clears the canvas, then calls other draw methods to draw the different
 	 * elements of the map
-	 * @param starList Hash map of stars to draw
+	 * @param starMap Hash map of stars to draw
+	 * @param dsoList List of deep sky objects to draw
 	 */
-	private void draw(final Map<Long, Star> starMap) {
+	private void draw(final Map<Long, Star> starMap, final List<DeepSkyObject> dsoList) {
 
 		final double d = getWidth() - 2 * PAD;
 
@@ -115,6 +119,14 @@ public class SkyMapCanvas extends Canvas {
 			}
 			drawStars(d, starMap);
 		}
+
+		if (dsoList != null) {
+			drawDeepSkyObjects(d, dsoList);
+		}
+	}
+
+	private void drawDeepSkyObjects(final double d, final List<DeepSkyObject> dsoList) {
+		
 	}
 
 	private void drawConstellationLines(final double d, final Map<Long, Star> starMap) {

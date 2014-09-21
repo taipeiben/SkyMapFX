@@ -3,6 +3,7 @@ package com.browniebytes.javafx.skymapfx.gui.controller;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -23,16 +24,21 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.browniebytes.javafx.control.DateTimePicker;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings;
 import com.browniebytes.javafx.skymapfx.ApplicationSettings.Settings;
+import com.browniebytes.javafx.skymapfx.data.dao.DeepSkyObjectDao;
 import com.browniebytes.javafx.skymapfx.data.dao.StarDao;
 import com.browniebytes.javafx.skymapfx.data.domain.TimeComputations;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.DeepSkyObject;
+import com.browniebytes.javafx.skymapfx.data.domain.entities.DeepSkyObject.DsoCatalog;
 import com.browniebytes.javafx.skymapfx.data.domain.entities.Star;
 import com.browniebytes.javafx.skymapfx.data.io.HipparcosCatalogFileReader;
+import com.browniebytes.javafx.skymapfx.data.io.NgcCatalogFileReader;
 import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas;
 import com.google.inject.Inject;
 
@@ -79,7 +85,9 @@ public class PrimaryController implements Initializable {
 	// ========================================
 	private final ApplicationSettings applicationSettings;
 	private final HipparcosCatalogFileReader catalogReader;
+	private final NgcCatalogFileReader ngcReader;
 	private final StarDao starDao;
+	private final DeepSkyObjectDao dsoDao;
 	private final SessionFactory sessionFactory;
 	private final ScheduledExecutorService executor;
 
@@ -92,14 +100,18 @@ public class PrimaryController implements Initializable {
 	public PrimaryController(
 			final ApplicationSettings applicationSettings,
 			final HipparcosCatalogFileReader catalogReader,
+			final NgcCatalogFileReader ngcReader,
 			final StarDao starDao,
+			final DeepSkyObjectDao dsoDao,
 			final SessionFactory sessionFactory,
 			final ScheduledExecutorService executor) {
 
 		this.applicationSettings = applicationSettings;
 		this.sessionFactory = sessionFactory;
 		this.catalogReader = catalogReader;
+		this.ngcReader = ngcReader;
 		this.starDao = starDao;
+		this.dsoDao = dsoDao;
 		this.executor = executor;
 	}
 
@@ -157,6 +169,20 @@ public class PrimaryController implements Initializable {
 		}
 	}
 
+	private long getDsoCount(final DsoCatalog catalog) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			final Criteria criteria = session.createCriteria(DeepSkyObject.class);
+			return (Long) criteria
+					.setProjection(Projections.rowCount())
+					.add(Restrictions.eq("catalog", catalog))
+					.uniqueResult();
+		} finally {
+			session.close();
+		}
+	}
+
 	/**
 	 * Starts the timer
 	 */
@@ -209,10 +235,28 @@ public class PrimaryController implements Initializable {
 		@Override
 		protected Void call() throws Exception {
 			catalogReader.buildStarDatabase();
+			ngcReader.buildDeepSkyObjectDatabase();
 
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("Stars found in database: " + getStarCount());
+
+				LOGGER.debug(
+						String.format(
+								"DSOs from %s catalog found in database: %d",
+								DsoCatalog.INDEX.toString(),
+								getDsoCount(DsoCatalog.INDEX)));
+				LOGGER.debug(
+						String.format(
+								"DSOs from %s catalog found in database: %d",
+								DsoCatalog.NEW_GENERAL.toString(),
+								getDsoCount(DsoCatalog.NEW_GENERAL)));
+				LOGGER.debug(
+						String.format(
+								"DSOs from %s catalog found in database: %d",
+								DsoCatalog.MESSIER.toString(),
+								getDsoCount(DsoCatalog.MESSIER)));
 			}
+
 			return null;
 		}
 
@@ -221,7 +265,7 @@ public class PrimaryController implements Initializable {
 		 */
 		@Override
 		protected void done() {
-			LOGGER.debug("Star database initialization complete");
+			LOGGER.debug("Database initialization complete");
 
 			if (useCurrentTimeCheckBox.isSelected()) {
 				startTimer();
@@ -247,6 +291,9 @@ public class PrimaryController implements Initializable {
 			starDao.updateAltitudeAzimuth(
 					Math.toRadians(Double.parseDouble(latitudeTextField.getText())),
 					Math.toRadians(computations.getLmstDeg()));
+			dsoDao.updateAltitudeAzimuth(
+					Math.toRadians(Double.parseDouble(latitudeTextField.getText())),
+					Math.toRadians(computations.getLmstDeg()));
 
 			return computations;
 		}
@@ -260,6 +307,7 @@ public class PrimaryController implements Initializable {
 				final TimeComputations computations = get();
 
 				final Map<Long, Star> starList = starDao.findAllByPositiveAltitude();
+				final List<DeepSkyObject> dsoList = dsoDao.findAllByPositiveAltitude();
 
 				Platform.runLater(
 						() -> {
@@ -282,7 +330,8 @@ public class PrimaryController implements Initializable {
 									showConstellationNamesCheckBox.isSelected(),
 									drawAltAziCheckBox.isSelected(),
 									flipHorizontalCheckBox.isSelected(),
-									starList);
+									starList,
+									dsoList);
 						});
 			} catch (ExecutionException ex) {
 				// TODO: handle exception

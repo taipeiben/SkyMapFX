@@ -20,7 +20,7 @@ import com.browniebytes.javafx.skymapfx.exceptions.FatalRuntimeException;
 import com.google.inject.Inject;
 
 /**
- * Reads zip file and stores data using JDBC, since using hibernate to populate
+ * Reads zip file and stores data using JDBC, since using Hibernate to populate
  * the entire database on startup was too slow.  Used Spring's JDBC template
  * for easy JDBC.
  */
@@ -79,8 +79,9 @@ public class HipparcosCatalogFileReader {
 
 			// Read until end of channel
 			while (channel.read(buffer) != -1) {
-				final Star star = new Star();
 				buffer.flip();
+
+				final Star star = new Star();
 				star.setCatalogNumber(buffer.getLong());
 				star.setRa(Math.toRadians(buffer.getDouble()));
 				star.setDec(Math.toRadians(buffer.getDouble()));
@@ -108,6 +109,7 @@ public class HipparcosCatalogFileReader {
 				// Clear buffer for next iteration
 				buffer.clear();
 			}
+			channel.close();
 
 			starDao.saveStars(starList);
 
