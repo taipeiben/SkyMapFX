@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
@@ -75,6 +76,7 @@ public class PrimaryController implements Initializable {
 	@FXML private CheckBox showConstellationNamesCheckBox;
 	@FXML private CheckBox drawAltAziCheckBox;
 	@FXML private CheckBox flipHorizontalCheckBox;
+	@FXML private Slider dsoMagnitudeSlider;
 
 	// Canvas
 	@FXML private StackPane canvasPane;
@@ -331,7 +333,8 @@ public class PrimaryController implements Initializable {
 									drawAltAziCheckBox.isSelected(),
 									flipHorizontalCheckBox.isSelected(),
 									starList,
-									dsoList);
+									dsoList,
+									dsoMagnitudeSlider.getValue());
 						});
 			} catch (ExecutionException ex) {
 				// TODO: handle exception

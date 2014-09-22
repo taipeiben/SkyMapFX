@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import com.browniebytes.javafx.control.DateTimePicker?>
 <?import com.browniebytes.javafx.skymapfx.gui.view.SkyMapCanvas?>
+<?import javafx.scene.control.Slider?>
 
 <BorderPane
 		xmlns:fx="http://javafx.com/fxml"
@@ -118,6 +119,15 @@
 								AnchorPane.leftAnchor="0">
 						</CheckBox>
 					</AnchorPane>
+					<VBox>
+						<Label text="DSO Magnitude"/>
+						<Slider
+								fx:id="dsoMagnitudeSlider"
+								min="1.7"
+								max="19"
+								value="7">
+						</Slider>
+					</VBox>
 				</VBox>
 			</TitledPane>
 		</VBox>

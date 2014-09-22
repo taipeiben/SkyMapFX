@@ -94,6 +94,7 @@ public class DeepSkyObjectDao {
 
 		final long start = System.currentTimeMillis();
 
+		double[] max = new double[] { Double.MIN_VALUE };
 		jt.batchUpdate(
 				"insert into DEEP_SKY_OBJECTS (catalog, catalogNumber, type, ra, dec, magnitude) VALUES (?, ?, ?, ?, ?, ?)",
 				new BatchPreparedStatementSetter() {
@@ -110,6 +111,9 @@ public class DeepSkyObjectDao {
 						ps.setDouble(4, dso.getRa());
 						ps.setDouble(5, dso.getDec());
 						ps.setDouble(6, dso.getMagnitude());
+						if (dso.getMagnitude() > max[0]) {
+							max[0] = dso.getMagnitude();
+						}
 					}
 
 					@Override
@@ -119,6 +123,7 @@ public class DeepSkyObjectDao {
 				});
 
 		LOGGER.debug("Committing ...");
+		LOGGER.debug("Max value: " + max[0]);
 		transactionManager.commit(status);
 
 		LOGGER.debug(

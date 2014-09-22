@@ -32,6 +32,7 @@ public class SkyMapCanvas extends Canvas {
 	private boolean showConstellationNames; // Show the constellation names?
 	private boolean drawAltAziGrid; // Draw the grid lines?
 	private boolean flipHorizontal; // Flip East and West (looking up at map or looking down)
+	private double dsoMagLimit;     // Filters out the dimmest objects
 
 	public SkyMapCanvas() {
 		// Add redraw listeners to redraw the grid (empty graph)
@@ -77,12 +78,14 @@ public class SkyMapCanvas extends Canvas {
 			final boolean drawAltAziGrid,
 			final boolean flipHorizontal,
 			final Map<Long, Star> starMap,
-			final List<DeepSkyObject> dsoList) {
+			final List<DeepSkyObject> dsoList,
+			final double dsoMagLimit) {
 
 		this.drawConstellationLines = drawConstellationLines;
 		this.showConstellationNames = showConstellationNames;
 		this.drawAltAziGrid = drawAltAziGrid;
 		this.flipHorizontal = flipHorizontal;
+		this.dsoMagLimit = dsoMagLimit;
 
 		try {
 			draw(starMap, dsoList);
@@ -123,10 +126,6 @@ public class SkyMapCanvas extends Canvas {
 		if (dsoList != null) {
 			drawDeepSkyObjects(d, dsoList);
 		}
-	}
-
-	private void drawDeepSkyObjects(final double d, final List<DeepSkyObject> dsoList) {
-		
 	}
 
 	private void drawConstellationLines(final double d, final Map<Long, Star> starMap) {
@@ -194,10 +193,50 @@ public class SkyMapCanvas extends Canvas {
 			final Star star = entry.getValue();
 
 			final double[] xy = getXYFromAltAzi(d, star.getAltitudeInRadians(), star.getAzimuthInRadians());
-			final double size = getStarDrawSize(star.getMagnitude(), d);
+			final double size = getDrawSize(star.getMagnitude(), d);
 
 			g.setFill(getStarColor(star));
 			g.fillOval(xy[0]-size/2, xy[1]-size/2, size, size);
+		}
+	}
+
+	private void drawDeepSkyObjects(final double d, final List<DeepSkyObject> dsoList) {
+
+		final GraphicsContext g = getGraphicsContext2D();
+
+		for (DeepSkyObject dso : dsoList) {
+			if (dso.getMagnitude() > dsoMagLimit) {
+				continue;
+			}
+
+			final double[] xy = getXYFromAltAzi(d, dso.getAltitudeInRadians(), dso.getAzimuthInRadians());
+			final double size = getDrawSize(1.0, d);
+
+			switch (dso.getType()) {
+			case GALAXY:
+				g.setStroke(Color.ORANGE);
+				g.strokeOval(xy[0]-size/2, xy[1]-size/2, size, size);
+				break;
+			case NEBULA:
+				g.setStroke(Color.VIOLET);
+				g.strokeRoundRect(xy[0]-size/2, xy[1]-size/2, size, size, 2, 2);
+				break;
+			case GLOBULAR_CLUSTER:
+				g.setStroke(Color.GREEN);
+				g.strokeOval(xy[0]-size/2, xy[1]-size/2, size, size);
+				break;
+			case OPEN_CLUSTER:
+				g.setStroke(Color.CYAN);
+				g.strokeOval(xy[0]-size/2, xy[1]-size/2, size, size);
+				break;
+			case CLUSTER_AND_NEBULA:
+				g.setStroke(Color.VIOLET);
+				g.strokeRoundRect(xy[0]-size/2, xy[1]-size/2, size, size, 2, 2);
+				g.setStroke(Color.GREEN);
+				g.strokeOval(xy[0]-size/2, xy[1]-size/2, size, size);
+				break;
+			}
+			
 		}
 	}
 
@@ -265,7 +304,7 @@ public class SkyMapCanvas extends Canvas {
 	 * @param d Diameter of the map circle in pixels
 	 * @return Star size in pixels
 	 */
-	private double getStarDrawSize(final double magnitude, final double d) {
+	private double getDrawSize(final double magnitude, final double d) {
 		final double scale = d / 280.0;
 		if (magnitude < 0) {
 			return 2.5 * scale;

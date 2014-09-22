@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 @Entity(name = "DEEP_SKY_OBJECTS")
 @NamedQueries({
@@ -138,12 +139,22 @@ public class DeepSkyObject {
 		return altitude;
 	}
 
+	@Transient
+	public Double getAltitudeInRadians() {
+		return Math.toRadians(altitude);
+	}
+
 	public void setAltitude(Double altitude) {
 		this.altitude = altitude;
 	}
 
 	public Double getAzimuth() {
 		return azimuth;
+	}
+
+	@Transient
+	public Double getAzimuthInRadians() {
+		return Math.toRadians(azimuth);
 	}
 
 	public void setAzimuth(Double azimuth) {
